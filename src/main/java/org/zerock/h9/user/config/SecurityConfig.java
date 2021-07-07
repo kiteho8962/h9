@@ -10,6 +10,9 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.access.AccessDeniedHandler;
 import org.zerock.h9.user.security.CustomAccessDeniedHandler;
+import org.zerock.h9.user.security.filter.ApiCheckFilter;
+import org.zerock.h9.user.security.filter.ApiLoginFilter;
+import org.zerock.h9.user.security.handler.LoginFailHandler;
 
 @Configuration
 @Log4j2
@@ -29,6 +32,18 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     @Bean
     public AccessDeniedHandler accessDeniedHandler() {
         return new CustomAccessDeniedHandler();
+    }
+
+    @Bean
+    public ApiCheckFilter apiCheckFilter(){
+        return new ApiCheckFilter("/api/board/**/*");
+    }
+
+    @Bean
+    public ApiLoginFilter apiLoginFilter() throws Exception {
+        ApiLoginFilter apiLoginFilter = new ApiLoginFilter("/login", authenticationManager());
+        apiLoginFilter.setAuthenticationFailureHandler(new LoginFailHandler());
+        return apiLoginFilter;
     }
 
 //    @Override

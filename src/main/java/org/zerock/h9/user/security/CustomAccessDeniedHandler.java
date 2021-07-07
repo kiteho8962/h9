@@ -13,11 +13,11 @@ import java.io.IOException;
 @Log4j2
 public class CustomAccessDeniedHandler implements AccessDeniedHandler {
 
-
     @Override
     public void handle(HttpServletRequest request, HttpServletResponse response, AccessDeniedException accessDeniedException) throws IOException, ServletException {
        log.error("===CustomAccessDeniedHandler===");
        log.error("===CustomAccessDeniedHandler===");
        log.error("===CustomAccessDeniedHandler===");
     }
+
 }
